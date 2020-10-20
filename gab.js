@@ -1,5 +1,5 @@
 const id = document.querySelector('#id')
-const fullname = document.querySelector('#fullanme')
+const fullname = document.querySelector('#fullname')
 const male = document.querySelector('#male')
 const female = document.querySelector('#female')
 const btn = document.querySelector('.formulir')
@@ -7,8 +7,9 @@ const tabel = document.querySelector('tbody')
 const gender = [male,female]
 const faculty = document.querySelector('#fakultas')
 const prodi = document.querySelector('#jurusan')
-const form = document.querySelector('#formulir')
+const form = document.querySelector('.formulir')
 form.addEventListener('submit',addstudent);
+const filtersearch = document.querySelector('.search')
 
 //addstudent pada tabel
 function addstudent(add){   
@@ -33,6 +34,11 @@ function addstudent(add){
     datafaculty.innerHTML = faculty.value;
     dataprodi.innerHTML = prodi.value;
     
+    datadelete.className='btn btn-danger';
+    datadelete.classList.add('btn-sm');
+
+    datadelete.innerHTML = 'delete';
+
     insertRows.appendChild(dataId)
     insertRows.appendChild(datafullname)
     insertRows.appendChild(datagender)
@@ -41,7 +47,22 @@ function addstudent(add){
     insertRows.appendChild(datadelete)
 
     tabel.appendChild(insertRows)
+    datadelete.addEventListener('click',function() {
+        var row = this.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+      })
+    }
 
-
-
+function filterSearching(){
+  var val = filtersearch.value.toUpperCase();
+  var tr = tabel.getElementsByTagName('tr');
+  console.log(val);
+  for (var i = 0; i < tr.length; i++) {
+    var listdata = tr[i].getElementsByTagName('td')[1];
+    if (listdata.textContent.toUpperCase().includes(val)>0) {
+      tr[i].style.display = ""
+    } else{
+      tr[i].style.display = "none"
+    }
+  }
 }
