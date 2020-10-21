@@ -8,11 +8,14 @@ const gender = [male,female]
 const faculty = document.querySelector('#fakultas')
 const prodi = document.querySelector('#jurusan')
 const form = document.querySelector('.formulir')
+const filterfakultas = document.querySelector('#filterfakultas')
+const filterprodi = document.querySelector('#filterprodi')
+
 form.addEventListener('submit',addstudent);
 const filtersearch = document.querySelector('.search')
 
 //addstudent pada tabel
-function addstudent(add){   
+function addstudent(add){
     add.preventDefault()
 
     const kelamin = gender.reduce(x =>{
@@ -33,7 +36,7 @@ function addstudent(add){
     datagender.innerHTML = kelamin;
     datafaculty.innerHTML = faculty.value;
     dataprodi.innerHTML = prodi.value;
-    
+
     datadelete.className='btn btn-danger';
     datadelete.classList.add('btn-sm');
 
@@ -59,6 +62,32 @@ function filterSearching(){
   console.log(val);
   for (var i = 0; i < tr.length; i++) {
     var listdata = tr[i].getElementsByTagName('td')[1];
+    if (listdata.textContent.toUpperCase().includes(val)>0) {
+      tr[i].style.display = ""
+    } else{
+      tr[i].style.display = "none"
+    }
+  }
+}
+function filter1(){
+  var val = filterfakultas.value.toUpperCase();
+  var tr = tabel.getElementsByTagName('tr');
+  console.log(val);
+  for (var i = 0; i < tr.length; i++) {
+    var listdata = tr[i].getElementsByTagName('td')[3];
+    if (listdata.textContent.toUpperCase().includes(val)>0) {
+      tr[i].style.display = ""
+    } else{
+      tr[i].style.display = "none"
+    }
+  }
+}
+function filter2(){
+  var val = filterprodi.value.toUpperCase();
+  var tr = tabel.getElementsByTagName('tr');
+  console.log(val);
+  for (var i = 0; i < tr.length; i++) {
+    var listdata = tr[i].getElementsByTagName('td')[4];
     if (listdata.textContent.toUpperCase().includes(val)>0) {
       tr[i].style.display = ""
     } else{
